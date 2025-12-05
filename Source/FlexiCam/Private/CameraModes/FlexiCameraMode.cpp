@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "FlexiCameraComponent.h"
+#include "FlexiPlayerCameraManager.h"
 
 // CameraModeView
 
@@ -13,9 +14,8 @@ FFlexiCameraModeView::FFlexiCameraModeView() :
 	Location(ForceInit),
 	Rotation(ForceInit),
 	ControlRotation(ForceInit),
-	FieldOfView(90) // TODO: make FOV setting
+	FieldOfView(FLEXI_CAMERA_DEFAULT_FOV)
 {
-
 }
 
 void FFlexiCameraModeView::Blend(const FFlexiCameraModeView& Other, float OtherWeight)
@@ -48,9 +48,9 @@ UFlexiCameraMode::UFlexiCameraMode()
 {
 	// TODO: Create defaults settings
 	// Set defaults settings 
-	FieldOfView = 90;
-	ViewPitchMin = -90;
-	ViewPitchMax = 90;
+	FieldOfView = FLEXI_CAMERA_DEFAULT_FOV;
+	ViewPitchMin = FLEXI_CAMERA_DEFAULT_PITCH_MIN;
+	ViewPitchMax = FLEXI_CAMERA_DEFAULT_PITCH_MAX;
 
 	BlendTime = 0.5f;
 	BlendFunction = ECameraModeBlendFunction::EaseOut;
