@@ -41,13 +41,13 @@ enum class ECameraModeBlendFunction : uint8
  *
  *	View data produced by the camera mode that is used to blend camera modes.
  */
-struct FCameraModeView
+struct FFlexiCameraModeView
 {
 public:
 
-	FCameraModeView();
+	FFlexiCameraModeView();
 
-	void Blend(const FCameraModeView& Other, float OtherWeight);
+	void Blend(const FFlexiCameraModeView& Other, float OtherWeight);
 
 public:
 
@@ -81,7 +81,7 @@ public:
 	// Called when this camera mode is deactivated on the camera mode stack.
 	virtual void OnDeactivation() {};
 
-	const FCameraModeView& GetCameraModeView() const;
+	const FFlexiCameraModeView& GetCameraModeView() const;
 	float GetBlendTime() const;
 	float GetBlendWeight() const;
 	FGameplayTag GetCameraTypeTag() const;
@@ -101,7 +101,7 @@ protected:
 	FGameplayTag CameraTypeTag;
 
 	// View output produced by the camera mode.
-	FCameraModeView View;
+	FFlexiCameraModeView View;
 
 	// The horizontal field of view (in degrees).
 	UPROPERTY(EditDefaultsOnly, Category = "View", Meta = (UIMin = "5.0", UIMax = "170", ClampMin = "5.0", ClampMax = "170.0"))
@@ -161,7 +161,7 @@ public:
 
 	void PushCameraMode(TSubclassOf<UFlexiCameraMode> CameraModeClass);
 
-	bool EvaluateStack(float DeltaTime, FCameraModeView& OutCameraModeView);
+	bool EvaluateStack(float DeltaTime, FFlexiCameraModeView& OutCameraModeView);
 
 	// Gets the tag associated with the top layer and the blend weight of it
 	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const;
@@ -171,7 +171,7 @@ protected:
 	UFlexiCameraMode* GetCameraModeInstance(TSubclassOf<UFlexiCameraMode> CameraModeClass);
 
 	void UpdateStack(float DeltaTime);
-	void BlendStack(FCameraModeView& OutCameraModeView) const;
+	void BlendStack(FFlexiCameraModeView& OutCameraModeView) const;
 
 protected:
 

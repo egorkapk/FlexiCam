@@ -5,10 +5,11 @@
 
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
+#include "FlexiCameraComponent.h"
 
 // CameraModeView
 
-FCameraModeView::FCameraModeView() :
+FFlexiCameraModeView::FFlexiCameraModeView() :
 	Location(ForceInit),
 	Rotation(ForceInit),
 	ControlRotation(ForceInit),
@@ -17,7 +18,7 @@ FCameraModeView::FCameraModeView() :
 
 }
 
-void FCameraModeView::Blend(const FCameraModeView& Other, float OtherWeight)
+void FFlexiCameraModeView::Blend(const FFlexiCameraModeView& Other, float OtherWeight)
 {
 	// Process blending edge cases
 	if (OtherWeight <= 0.0f)
@@ -60,8 +61,7 @@ UFlexiCameraMode::UFlexiCameraMode()
 
 UE_API UFlexiCameraComponent* UFlexiCameraMode::GetFlexiCameraComponent() const
 {
-	// TODO: Implement FlexiCameraComponent
-	return nullptr;
+	return CastChecked<UFlexiCameraComponent>(GetOuter());
 }
 
 UE_API UWorld* UFlexiCameraMode::GetWorld() const
@@ -72,8 +72,9 @@ UE_API UWorld* UFlexiCameraMode::GetWorld() const
 
 UE_API AActor* UFlexiCameraMode::GetTargetActor() const
 {
-	// TODO:Implement
-	return nullptr;
+	const UFlexiCameraComponent* FlexiCameraComponent = GetFlexiCameraComponent();
+
+	return FlexiCameraComponent->GetTargetActor();
 }
 
 UE_API void UFlexiCameraMode::UpdateCameraMode(float DeltaTime)
@@ -113,7 +114,7 @@ UE_API void UFlexiCameraMode::SetBlendWeight(float Weight)
 	}
 }
 
-const FCameraModeView& UFlexiCameraMode::GetCameraModeView() const
+const FFlexiCameraModeView& UFlexiCameraMode::GetCameraModeView() const
 {
 	return View;
 }
@@ -332,7 +333,7 @@ void UFlexiCameraModeStack::PushCameraMode(TSubclassOf<UFlexiCameraMode> CameraM
 	}
 }
 
-bool UFlexiCameraModeStack::EvaluateStack(float DeltaTime, FCameraModeView& OutCameraModeView)
+bool UFlexiCameraModeStack::EvaluateStack(float DeltaTime, FFlexiCameraModeView& OutCameraModeView)
 {
 	if (!bIsActive)
 	{
@@ -384,7 +385,7 @@ UFlexiCameraMode* UFlexiCameraModeStack::GetCameraModeInstance(TSubclassOf<UFlex
 	return NewCameraMode;
 }
 
-void UFlexiCameraModeStack::BlendStack(FCameraModeView& OutCameraModeView) const
+void UFlexiCameraModeStack::BlendStack(FFlexiCameraModeView& OutCameraModeView) const
 {
 	const int32 StackSize = CameraModeStack.Num();
 	if (StackSize <= 0)
