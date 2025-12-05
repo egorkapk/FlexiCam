@@ -29,12 +29,12 @@ public:
 	// Delegate used to query for the best camera mode.
 	FFlexiCameraModeDelegate DetermineCameraModeDelegate;
 
+	// Returns the target actor that the camera is looking at.
+	virtual AActor* GetTargetActor() const;
+
 	// Returns the camera component if one exists on the specified actor.
 	UFUNCTION(BlueprintPure, Category = "FlexiCam|Camera")
 	static UFlexiCameraComponent* FindCameraComponent(const AActor* Actor);
-
-	// Returns the target actor that the camera is looking at.
-	virtual AActor* GetTargetActor() const;
 
 	// Add an offset to the field of view.  The offset is only for one frame, it gets cleared once it is applied.
 	void AddFieldOfViewOffset(float FovOffset);

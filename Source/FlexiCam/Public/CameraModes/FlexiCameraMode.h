@@ -157,7 +157,7 @@ public:
 	void ActivateStack();
 	void DeactivateStack();
 
-	bool IsStackActivate() const { return bIsActive; }
+	bool IsStackActivate() const;
 
 	void PushCameraMode(TSubclassOf<UFlexiCameraMode> CameraModeClass);
 

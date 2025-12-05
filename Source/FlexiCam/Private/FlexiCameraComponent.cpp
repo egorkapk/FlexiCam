@@ -23,15 +23,14 @@ void UFlexiCameraComponent::OnRegister()
 	}
 }
 
+AActor* UFlexiCameraComponent::GetTargetActor() const
+{
+	return GetOwner();
+}
 
 UFlexiCameraComponent* UFlexiCameraComponent::FindCameraComponent(const AActor* Actor)
 {
 	return (Actor ? Actor->FindComponentByClass<UFlexiCameraComponent>() : nullptr);
-}
-
-AActor* UFlexiCameraComponent::GetTargetActor() const
-{
-	return GetOwner();
 }
 
 void UFlexiCameraComponent::AddFieldOfViewOffset(float FovOffset)

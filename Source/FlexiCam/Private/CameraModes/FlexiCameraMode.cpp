@@ -267,6 +267,11 @@ void UFlexiCameraModeStack::DeactivateStack()
 	}
 }
 
+bool UFlexiCameraModeStack::IsStackActivate() const
+{
+	return bIsActive;
+}
+
 void UFlexiCameraModeStack::PushCameraMode(TSubclassOf<UFlexiCameraMode> CameraModeClass)
 {
 	if (!CameraModeClass)
