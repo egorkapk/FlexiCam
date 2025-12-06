@@ -41,8 +41,12 @@ enum class ECameraModeBlendFunction : uint8
  *
  *	View data produced by the camera mode that is used to blend camera modes.
  */
+
+USTRUCT(BlueprintType)
 struct FFlexiCameraModeView
 {
+	GENERATED_BODY()
+
 public:
 
 	FFlexiCameraModeView();
@@ -50,10 +54,13 @@ public:
 	void Blend(const FFlexiCameraModeView& Other, float OtherWeight);
 
 public:
-
+	UPROPERTY(BlueprintReadWrite)
 	FVector Location;
+	UPROPERTY(BlueprintReadWrite)
 	FRotator Rotation;
+	UPROPERTY(BlueprintReadWrite)
 	FRotator ControlRotation;
+	UPROPERTY(BlueprintReadWrite)
 	float FieldOfView;
 };
 
@@ -69,17 +76,25 @@ class UFlexiCameraMode : public UObject
 public:
 
 	UE_API UFlexiCameraMode();
+	UFUNCTION(BlueprintPure)
 	UE_API UFlexiCameraComponent* GetFlexiCameraComponent() const;
+	UFUNCTION(BlueprintPure)
 	UE_API virtual UWorld* GetWorld() const override;
+	UFUNCTION(BlueprintPure)
 	UE_API AActor* GetTargetActor() const;
 	UE_API void UpdateCameraMode(float DeltaTime);
 	UE_API void SetBlendWeight(float Weight);
 
 public:
 	// Called when this camera mode is activated on the camera mode stack.
-	virtual void OnActivation() {};
+	virtual void OnActivation();
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Activation"))
+	void OnActivation_Event();
+
 	// Called when this camera mode is deactivated on the camera mode stack.
-	virtual void OnDeactivation() {};
+	virtual void OnDeactivation();
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Deactivation"))
+	void OnDeactivation_Event();
 
 	const FFlexiCameraModeView& GetCameraModeView() const;
 	float GetBlendTime() const;
@@ -91,7 +106,10 @@ protected:
 	UE_API virtual FVector GetPivotLocation() const;
 	UE_API virtual FRotator GetPivotRotation() const;
 
-	UE_API virtual void UpdateView(float DeltaTime);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Example")
+	UE_API void UpdateView(float DeltaTime);
+	UE_API virtual void UpdateView_Implementation(float DeltaTime);
+
 	UE_API virtual void UpdateBlending(float DeltaTime);
 
 protected:
@@ -101,18 +119,19 @@ protected:
 	FGameplayTag CameraTypeTag;
 
 	// View output produced by the camera mode.
-	FFlexiCameraModeView View;
+	UPROPERTY(BlueprintReadWrite)
+	FFlexiCameraModeView ModeView;
 
 	// The horizontal field of view (in degrees).
-	UPROPERTY(EditDefaultsOnly, Category = "View", Meta = (UIMin = "5.0", UIMax = "170", ClampMin = "5.0", ClampMax = "170.0"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "View", Meta = (UIMin = "5.0", UIMax = "170", ClampMin = "5.0", ClampMax = "170.0"))
 	float FieldOfView;
 
 	// Minimum view pitch (in degrees).
-	UPROPERTY(EditDefaultsOnly, Category = "View", Meta = (UIMin = "-89.9", UIMax = "89.9", ClampMin = "-89.9", ClampMax = "89.9"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "View", Meta = (UIMin = "-89.9", UIMax = "89.9", ClampMin = "-89.9", ClampMax = "89.9"))
 	float ViewPitchMin;
 
 	// Maximum view pitch (in degrees).
-	UPROPERTY(EditDefaultsOnly, Category = "View", Meta = (UIMin = "-89.9", UIMax = "89.9", ClampMin = "-89.9", ClampMax = "89.9"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "View", Meta = (UIMin = "-89.9", UIMax = "89.9", ClampMin = "-89.9", ClampMax = "89.9"))
 	float ViewPitchMax;
 
 	// How long it takes to blend in this mode.

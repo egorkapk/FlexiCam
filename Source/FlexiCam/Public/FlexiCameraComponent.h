@@ -29,7 +29,7 @@ public:
 	// Delegate used to query for the best camera mode.
 	FFlexiCameraModeDelegate DetermineCameraModeDelegate;
 
-	// Returns the target actor that the camera is looking at.
+	// Returns the target actor that the camera is looking at (assigned to by default)
 	virtual AActor* GetTargetActor() const;
 
 	// Returns the camera component if one exists on the specified actor.

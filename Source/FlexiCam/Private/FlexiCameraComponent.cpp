@@ -98,6 +98,7 @@ void UFlexiCameraComponent::UpdateCameraModes()
 	{
 		if (DetermineCameraModeDelegate.IsBound())
 		{
+			// Binded in FlexiCameraModeManagerComponent->BeginPlay()
 			if (const TSubclassOf<UFlexiCameraMode> CameraMode = DetermineCameraModeDelegate.Execute())
 			{
 				CameraModeStack->PushCameraMode(CameraMode);

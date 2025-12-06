@@ -114,9 +114,26 @@ UE_API void UFlexiCameraMode::SetBlendWeight(float Weight)
 	}
 }
 
+void UFlexiCameraMode::OnActivation()
+{
+	if (GetClass()->HasAnyClassFlags(CLASS_CompiledFromBlueprint) || !GetClass()->HasAnyClassFlags(CLASS_Native))
+	{
+		OnActivation_Event();
+	}
+}
+
+void UFlexiCameraMode::OnDeactivation()
+{
+	// If we're in the process of being garbage collected it is unsafe to call out to blueprints
+	if (!HasAnyFlags(RF_BeginDestroyed) && !IsUnreachable() && (GetClass()->HasAnyClassFlags(CLASS_CompiledFromBlueprint) || !GetClass()->HasAnyClassFlags(CLASS_Native)))
+	{
+		OnDeactivation_Event();
+	}
+}
+
 const FFlexiCameraModeView& UFlexiCameraMode::GetCameraModeView() const
 {
-	return View;
+	return ModeView;
 }
 
 float UFlexiCameraMode::GetBlendTime() const
@@ -179,17 +196,17 @@ UE_API FRotator UFlexiCameraMode::GetPivotRotation() const
 	return TargetActor->GetActorRotation();
 }
 
-UE_API void UFlexiCameraMode::UpdateView(float DeltaTime)
+UE_API void UFlexiCameraMode::UpdateView_Implementation(float DeltaTime)
 {
 	FVector PivotLocation = GetPivotLocation();
 	FRotator PivotRotation = GetPivotRotation();
 
 	PivotRotation.Pitch = FMath::ClampAngle(PivotRotation.Pitch, ViewPitchMin, ViewPitchMax);
 
-	View.Location = PivotLocation;
-	View.Rotation = PivotRotation;
-	View.ControlRotation = View.Rotation;
-	View.FieldOfView = FieldOfView;
+	ModeView.Location = PivotLocation;
+	ModeView.Rotation = PivotRotation;
+	ModeView.ControlRotation = ModeView.Rotation;
+	ModeView.FieldOfView = FieldOfView;
 }
 
 UE_API void UFlexiCameraMode::UpdateBlending(float DeltaTime)
