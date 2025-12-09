@@ -102,8 +102,9 @@ public:
 	FGameplayTag GetCameraTypeTag() const;
 
 protected:
-
+	UFUNCTION(BlueprintCallable)
 	UE_API virtual FVector GetPivotLocation() const;
+	UFUNCTION(BlueprintCallable)
 	UE_API virtual FRotator GetPivotRotation() const;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Example")
