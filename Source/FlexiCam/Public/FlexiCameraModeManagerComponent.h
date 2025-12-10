@@ -28,6 +28,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "FlexiCam|Modes")
 	void ResetToDefaultCameraMode();
 
+	// Gets the tag associated with the current camera mode and the blend weight of it
+	UFUNCTION(BlueprintCallable, Category = "FlexiCam|Modes")
+	void GetCurrentCameraModeInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

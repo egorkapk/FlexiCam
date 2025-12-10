@@ -41,6 +41,18 @@ void UFlexiCameraModeManagerComponent::ResetToDefaultCameraMode()
 	CurrentCameraModeClass = nullptr;
 }
 
+void UFlexiCameraModeManagerComponent::GetCurrentCameraModeInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const
+{
+	if (UFlexiCameraComponent* CameraComponent = UFlexiCameraComponent::FindCameraComponent(GetOwner()))
+	{
+		CameraComponent->GetBlendInfo(OutWeightOfTopLayer, OutTagOfTopLayer);
+		return;
+	}
+	OutWeightOfTopLayer = 1.0f;
+	OutTagOfTopLayer = FGameplayTag();
+	return;
+}
+
 TSubclassOf<UFlexiCameraMode> UFlexiCameraModeManagerComponent::DetermineCameraMode() const
 {
 	if (CurrentCameraModeClass)
