@@ -27,6 +27,8 @@ public class FlexiCam : ModuleRules
 			{
 				"Core",
                 "GameplayTags",
+                "EnhancedInput",
+                "InputCore",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -37,8 +39,6 @@ public class FlexiCam : ModuleRules
 			{
 				"CoreUObject",
 				"Engine",
-				"Slate",
-				"SlateCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
