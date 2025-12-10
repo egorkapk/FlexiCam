@@ -1,0 +1,79 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "Examples/FightingCameraMode.h"
+
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/Character.h"
+
+UFightingCameraMode::UFightingCameraMode()
+{
+	DefaultPivotRotation = FRotator::ZeroRotator;
+}
+
+void UFightingCameraMode::UpdateView_Implementation(float DeltaTime)
+{
+	const float Distance = BoundsSizeToDistance.GetRichCurveConst()->Eval(GetFightersMaxDistance());
+	FVector PivotLocation = GetMidPoint() - DefaultPivotRotation.Vector() * Distance;
+
+	ModeView.Location = PivotLocation;
+	ModeView.Rotation = DefaultPivotRotation;
+	ModeView.ControlRotation = ModeView.Rotation;
+	ModeView.FieldOfView = FieldOfView;
+}
+
+FVector UFightingCameraMode::GetMidPoint() const
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return FVector::ZeroVector;
+	}
+
+	TArray<AActor*> FightingActors;
+	UGameplayStatics::GetAllActorsOfClass(World, ACharacter::StaticClass(), FightingActors);
+	if (FightingActors.Num() <= 0)
+	{
+		return FVector::ZeroVector;
+	}
+
+	// Calculate midpoint
+	FVector LocationSum = FVector::ZeroVector;
+
+	for ( int32 It = 0; It < FightingActors.Num(); It++)
+	{
+		LocationSum += FightingActors[It]->GetActorLocation();
+	}
+	FVector MidPoint = LocationSum / FightingActors.Num();
+	return MidPoint;
+}
+
+const float UFightingCameraMode::GetFightersMaxDistance() const
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return 0.0f;
+	}
+
+	TArray<AActor*> FightingActors;
+	UGameplayStatics::GetAllActorsOfClass(World, ACharacter::StaticClass(), FightingActors);
+	if (FightingActors.Num() <= 0)
+	{
+		return 0.0f;
+	}
+
+	// Calculate max distance between two fighters
+	float MaxDistance = 0.0f;
+
+	for (int32 i = 0; i < FightingActors.Num(); i++)
+	{
+		for (int32 j = i + 1; j < FightingActors.Num(); j++)
+		{
+			float Dist = FVector::Distance(FightingActors[i]->GetActorLocation(), FightingActors[j]->GetActorLocation());
+			MaxDistance = FMath::Max(MaxDistance, Dist);
+		}
+	}
+
+	return MaxDistance;
+}
