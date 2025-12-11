@@ -10,6 +10,7 @@ class UFlexiCameraMode;
 class UFlexiCameraModeStack;
 struct FMinimalViewInfo;
 struct FGameplayTag;
+struct FGameplayTagContainer;
 
 
 DECLARE_DELEGATE_RetVal(TSubclassOf<UFlexiCameraMode>, FFlexiCameraModeDelegate)
@@ -40,7 +41,7 @@ public:
 	void AddFieldOfViewOffset(float FovOffset);
 
 	// Gets the tag associated with the top layer and the blend weight of it
-	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const;
+	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const;
 
 protected:
 

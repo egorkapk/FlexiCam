@@ -38,10 +38,10 @@ void UFlexiCameraComponent::AddFieldOfViewOffset(float FovOffset)
 	FieldOfViewOffset += FovOffset;
 }
 
-void UFlexiCameraComponent::GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const
+void UFlexiCameraComponent::GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const
 {
 	check(CameraModeStack);
-	CameraModeStack->GetBlendInfo(OutWeightOfTopLayer, OutTagOfTopLayer);
+	CameraModeStack->GetBlendInfo(OutWeightOfTopLayer, OutTagsOfTopLayer);
 }
 
 void UFlexiCameraComponent::GetCameraView(float DeltaTime, FMinimalViewInfo& DesiredView)

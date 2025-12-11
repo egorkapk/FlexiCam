@@ -100,6 +100,7 @@ public:
 	float GetBlendTime() const;
 	float GetBlendWeight() const;
 	FGameplayTag GetCameraTypeTag() const;
+	const FGameplayTagContainer& GetTagContainer() const;
 
 protected:
 	UFUNCTION(BlueprintCallable)
@@ -107,17 +108,17 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	UE_API virtual FRotator GetPivotRotation() const;
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Example")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	UE_API void UpdateView(float DeltaTime);
 	UE_API virtual void UpdateView_Implementation(float DeltaTime);
 
 	UE_API virtual void UpdateBlending(float DeltaTime);
 
 protected:
-	// A tag that can be queried by gameplay code that cares when a kind of camera mode is active
+	// A tags that can be queried by gameplay code that cares when a kind of camera mode is active
 	// without having to ask about a specific mode.
 	UPROPERTY(EditDefaultsOnly, Category = "Blending")
-	FGameplayTag CameraTypeTag;
+	FGameplayTagContainer CameraTypeTags;
 
 	// View output produced by the camera mode.
 	UPROPERTY(BlueprintReadWrite)
@@ -184,7 +185,7 @@ public:
 	bool EvaluateStack(float DeltaTime, FFlexiCameraModeView& OutCameraModeView);
 
 	// Gets the tag associated with the top layer and the blend weight of it
-	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const;
+	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer & OutTagsOfTopLayer) const;
 
 protected:
 

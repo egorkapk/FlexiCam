@@ -41,16 +41,24 @@ void UFlexiCameraModeManagerComponent::ResetToDefaultCameraMode()
 	CurrentCameraModeClass = nullptr;
 }
 
-void UFlexiCameraModeManagerComponent::GetCurrentCameraModeInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const
+void UFlexiCameraModeManagerComponent::GetCurrentCameraModeBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const
 {
 	if (UFlexiCameraComponent* CameraComponent = UFlexiCameraComponent::FindCameraComponent(GetOwner()))
 	{
-		CameraComponent->GetBlendInfo(OutWeightOfTopLayer, OutTagOfTopLayer);
+		CameraComponent->GetBlendInfo(OutWeightOfTopLayer, OutTagsOfTopLayer);
 		return;
 	}
 	OutWeightOfTopLayer = 1.0f;
-	OutTagOfTopLayer = FGameplayTag();
+	OutTagsOfTopLayer = FGameplayTagContainer();
 	return;
+}
+
+bool UFlexiCameraModeManagerComponent::CurrentCameraModeHasAnyTag(const FGameplayTagContainer& ContainerToCheck)
+{
+	FGameplayTagContainer CurrentTags;
+	float Weight;
+	GetCurrentCameraModeBlendInfo(Weight, CurrentTags);
+	return CurrentTags.HasAny(ContainerToCheck);
 }
 
 TSubclassOf<UFlexiCameraMode> UFlexiCameraModeManagerComponent::DetermineCameraMode() const

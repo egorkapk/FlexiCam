@@ -132,11 +132,10 @@ void AFlexiCamCharacter::DoMove(float Right, float Forward)
 		}
 
 		// check if CameraMode has tag to disable forward movement
-		float CurrentCameraModeBlendWeight = 0.0f;
-		FGameplayTag CurrentCameraModeTag;
-		CameraModeManager->GetCurrentCameraModeInfo(CurrentCameraModeBlendWeight, CurrentCameraModeTag);
+		FGameplayTagContainer CheckContainer;
+		CheckContainer.AddTag(TAG_SideScrollingMovement);
 
-		if (CurrentCameraModeTag == TAG_SideScrollingMovement)
+		if (CameraModeManager->CurrentCameraModeHasAnyTag(CheckContainer))
 		{
 			AddMovementInput(RightDirection, Right);
 		}

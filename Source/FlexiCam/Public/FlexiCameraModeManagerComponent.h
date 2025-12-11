@@ -9,6 +9,7 @@
 
 class UFlexiCameraMode;
 class UFlexiCameraComponent;
+struct FGameplayTagContainer;
 
 /**
 * Component to manage CameraModes
@@ -30,7 +31,11 @@ public:
 
 	// Gets the tag associated with the current camera mode and the blend weight of it
 	UFUNCTION(BlueprintCallable, Category = "FlexiCam|Modes")
-	void GetCurrentCameraModeInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const;
+	void GetCurrentCameraModeBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const;
+
+	// Return true if CurrentCameraMode has any of provided tags
+	UFUNCTION(BlueprintCallable, Category = "FlexiCam|Modes")
+	bool CurrentCameraModeHasAnyTag(const FGameplayTagContainer& ContainerToCheck);
 
 protected:
 	// Called when the game starts

@@ -146,9 +146,9 @@ float UFlexiCameraMode::GetBlendWeight() const
 	return BlendWeight;
 }
 
-FGameplayTag UFlexiCameraMode::GetCameraTypeTag() const
+const FGameplayTagContainer& UFlexiCameraMode::GetTagContainer() const
 {
-	return CameraTypeTag;
+	return CameraTypeTags;
 }
 
 UE_API FVector UFlexiCameraMode::GetPivotLocation() const
@@ -368,12 +368,12 @@ bool UFlexiCameraModeStack::EvaluateStack(float DeltaTime, FFlexiCameraModeView&
 	return true;
 }
 
-void UFlexiCameraModeStack::GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTag& OutTagOfTopLayer) const
+void UFlexiCameraModeStack::GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const
 {
 	if (CameraModeStack.Num() == 0)
 	{
 		OutWeightOfTopLayer = 1.0f;
-		OutTagOfTopLayer = FGameplayTag();
+		OutTagsOfTopLayer = FGameplayTagContainer();
 		return;
 	}
 	else
@@ -381,9 +381,10 @@ void UFlexiCameraModeStack::GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTa
 		UFlexiCameraMode* TopEntry = CameraModeStack.Last();
 		check(TopEntry);
 		OutWeightOfTopLayer = TopEntry->GetBlendWeight();
-		OutTagOfTopLayer = TopEntry->GetCameraTypeTag();
+		OutTagsOfTopLayer = TopEntry->GetTagContainer();
 	}
 }
+
 
 UFlexiCameraMode* UFlexiCameraModeStack::GetCameraModeInstance(TSubclassOf<UFlexiCameraMode> CameraModeClass)
 {
