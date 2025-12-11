@@ -59,31 +59,31 @@ UFlexiCameraMode::UFlexiCameraMode()
 	BlendWeight = 1.0f;
 }
 
-UE_API UFlexiCameraComponent* UFlexiCameraMode::GetFlexiCameraComponent() const
+UFlexiCameraComponent* UFlexiCameraMode::GetFlexiCameraComponent() const
 {
 	return CastChecked<UFlexiCameraComponent>(GetOuter());
 }
 
-UE_API UWorld* UFlexiCameraMode::GetWorld() const
+UWorld* UFlexiCameraMode::GetWorld() const
 {
 	// This class is used as abstract template. So we dont have Outer here and have to create childs.
 	return HasAnyFlags(RF_ClassDefaultObject) ? nullptr : GetOuter()->GetWorld();
 }
 
-UE_API AActor* UFlexiCameraMode::GetTargetActor() const
+AActor* UFlexiCameraMode::GetTargetActor() const
 {
 	const UFlexiCameraComponent* FlexiCameraComponent = GetFlexiCameraComponent();
 
 	return FlexiCameraComponent->GetTargetActor();
 }
 
-UE_API void UFlexiCameraMode::UpdateCameraMode(float DeltaTime)
+void UFlexiCameraMode::UpdateCameraMode(float DeltaTime)
 {
 	UpdateView(DeltaTime);
 	UpdateBlending(DeltaTime);
 }
 
-UE_API void UFlexiCameraMode::SetBlendWeight(float Weight)
+void UFlexiCameraMode::SetBlendWeight(float Weight)
 {
 	BlendWeight = FMath::Clamp(Weight, 0.0f, 1.0f);
 
@@ -151,7 +151,7 @@ const FGameplayTagContainer& UFlexiCameraMode::GetTagContainer() const
 	return CameraTypeTags;
 }
 
-UE_API FVector UFlexiCameraMode::GetPivotLocation() const
+FVector UFlexiCameraMode::GetPivotLocation() const
 {
 	const AActor* TargetActor = GetTargetActor();
 	check(TargetActor);
@@ -183,7 +183,7 @@ UE_API FVector UFlexiCameraMode::GetPivotLocation() const
 	return TargetActor->GetActorLocation();
 }
 
-UE_API FRotator UFlexiCameraMode::GetPivotRotation() const
+FRotator UFlexiCameraMode::GetPivotRotation() const
 {
 	const AActor* TargetActor = GetTargetActor();
 	check(TargetActor);
@@ -196,7 +196,7 @@ UE_API FRotator UFlexiCameraMode::GetPivotRotation() const
 	return TargetActor->GetActorRotation();
 }
 
-UE_API void UFlexiCameraMode::UpdateView_Implementation(float DeltaTime)
+void UFlexiCameraMode::UpdateView_Implementation(float DeltaTime)
 {
 	FVector PivotLocation = GetPivotLocation();
 	FRotator PivotRotation = GetPivotRotation();
@@ -209,7 +209,7 @@ UE_API void UFlexiCameraMode::UpdateView_Implementation(float DeltaTime)
 	ModeView.FieldOfView = FieldOfView;
 }
 
-UE_API void UFlexiCameraMode::UpdateBlending(float DeltaTime)
+void UFlexiCameraMode::UpdateBlending(float DeltaTime)
 {
 	if (BlendTime > 0.0f)
 	{
