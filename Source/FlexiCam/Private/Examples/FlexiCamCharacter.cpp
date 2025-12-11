@@ -13,10 +13,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "FlexiCameraModeManagerComponent.h"
-//#include "GameplayTagContainer.h"
-#include "Miscellaneous/FlexiCamTags.h"
+#include "GameplayTagContainer.h"
 
-//UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_SideScrollingMovement, "Flexi.Movement.SideScroller");
+UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_SideScrollingMovement, "Flexi.Movement.SideScroller");
 
 // Sets default values
 AFlexiCamCharacter::AFlexiCamCharacter()
@@ -134,7 +133,6 @@ void AFlexiCamCharacter::DoMove(float Right, float Forward)
 
 		// check if CameraMode has tag to disable forward movement
 		FGameplayTagContainer CheckContainer;
-		//CheckContainer.AddTag(TAG_SideScrollingMovement);
 		CheckContainer.AddTag(TAG_SideScrollingMovement);
 
 		if (CameraModeManager->CurrentCameraModeHasAnyTag(CheckContainer))
