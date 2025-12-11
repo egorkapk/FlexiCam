@@ -4,6 +4,7 @@
 #include "FlexiCameraComponent.h"
 
 #include "CameraModes/FlexiCameraMode.h"
+#include "GameFramework/Pawn.h"
 
 UFlexiCameraComponent::UFlexiCameraComponent(const FObjectInitializer& ObjectInitializer) :
 	Super(ObjectInitializer)

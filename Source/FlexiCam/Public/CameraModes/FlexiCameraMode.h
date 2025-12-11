@@ -8,7 +8,6 @@
 
 #include "FlexiCameraMode.generated.h"
 
-#define UE_API FLEXICAM_API
 
 class AActor;
 class UFlexiCameraComponent;
@@ -54,13 +53,13 @@ public:
 	void Blend(const FFlexiCameraModeView& Other, float OtherWeight);
 
 public:
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "FlexiCamera|CameraModeView")
 	FVector Location;
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "FlexiCamera|CameraModeView")
 	FRotator Rotation;
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "FlexiCamera|CameraModeView")
 	FRotator ControlRotation;
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "FlexiCamera|CameraModeView")
 	float FieldOfView;
 };
 
@@ -68,22 +67,22 @@ public:
 /**
  * Base class for all FlexiCam camera modes
  */
-UCLASS(MinimalAPI, Abstract, Blueprintable)
-class UFlexiCameraMode : public UObject
+UCLASS(Abstract, Blueprintable, Category = "FlexiCamera")
+class FLEXICAM_API UFlexiCameraMode : public UObject
 {
 	GENERATED_BODY()
 
 public:
 
-	UE_API UFlexiCameraMode();
-	UFUNCTION(BlueprintPure)
-	UE_API UFlexiCameraComponent* GetFlexiCameraComponent() const;
-	UFUNCTION(BlueprintPure)
-	UE_API virtual UWorld* GetWorld() const override;
-	UFUNCTION(BlueprintPure)
-	UE_API AActor* GetTargetActor() const;
-	UE_API void UpdateCameraMode(float DeltaTime);
-	UE_API void SetBlendWeight(float Weight);
+	UFlexiCameraMode();
+	UFUNCTION(BlueprintPure, Category = "FlexiCamera|CameraMode")
+	UFlexiCameraComponent* GetFlexiCameraComponent() const;
+	UFUNCTION(BlueprintPure, Category = "FlexiCamera|CameraMode")
+	virtual UWorld* GetWorld() const override;
+	UFUNCTION(BlueprintPure, Category = "FlexiCamera|CameraMode")
+	AActor* GetTargetActor() const;
+	void UpdateCameraMode(float DeltaTime);
+	void SetBlendWeight(float Weight);
 
 public:
 	// Called when this camera mode is activated on the camera mode stack.
@@ -103,16 +102,16 @@ public:
 	const FGameplayTagContainer& GetTagContainer() const;
 
 protected:
-	UFUNCTION(BlueprintCallable)
-	UE_API virtual FVector GetPivotLocation() const;
-	UFUNCTION(BlueprintCallable)
-	UE_API virtual FRotator GetPivotRotation() const;
+	UFUNCTION(BlueprintCallable, Category = "FlexiCamera|CameraMode")
+	virtual FVector GetPivotLocation() const;
+	UFUNCTION(BlueprintCallable, Category = "FlexiCamera|CameraMode")
+	virtual FRotator GetPivotRotation() const;
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	UE_API void UpdateView(float DeltaTime);
-	UE_API virtual void UpdateView_Implementation(float DeltaTime);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "FlexiCamera|CameraMode")
+	void UpdateView(float DeltaTime);
+	virtual void UpdateView_Implementation(float DeltaTime);
 
-	UE_API virtual void UpdateBlending(float DeltaTime);
+	virtual void UpdateBlending(float DeltaTime);
 
 protected:
 	// A tags that can be queried by gameplay code that cares when a kind of camera mode is active
@@ -121,7 +120,7 @@ protected:
 	FGameplayTagContainer CameraTypeTags;
 
 	// View output produced by the camera mode.
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "FlexiCamera|CameraMode")
 	FFlexiCameraModeView ModeView;
 
 	// The horizontal field of view (in degrees).
@@ -185,7 +184,7 @@ public:
 	bool EvaluateStack(float DeltaTime, FFlexiCameraModeView& OutCameraModeView);
 
 	// Gets the tag associated with the top layer and the blend weight of it
-	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer & OutTagsOfTopLayer) const;
+	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const;
 
 protected:
 
@@ -204,5 +203,3 @@ protected:
 	UPROPERTY()
 	TArray<TObjectPtr<UFlexiCameraMode>> CameraModeStack;
 };
-
-//#undef UE_API
