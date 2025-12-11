@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "FlexiCamCharacter.h"
+#include "Examples/FlexiCamCharacter.h"
 
 #include "Engine/LocalPlayer.h"
 #include "Components/CapsuleComponent.h"
