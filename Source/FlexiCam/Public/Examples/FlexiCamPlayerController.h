@@ -12,7 +12,7 @@ class UInputMappingContext;
  * Basic PlayerController class for a third person game
  * Manages input mappings
  */
-UCLASS()
+UCLASS(Abstract)
 class FLEXICAM_API AFlexiCamPlayerController : public APlayerController
 {
 	GENERATED_BODY()
