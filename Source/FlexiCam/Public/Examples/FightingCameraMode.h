@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "CameraModes/FlexiCameraMode.h"
+#include "Curves/CurveFloat.h"
+
 #include "FightingCameraMode.generated.h"
 
 /**
