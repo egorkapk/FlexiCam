@@ -14,8 +14,7 @@
 #include "InputActionValue.h"
 #include "FlexiCameraModeManagerComponent.h"
 #include "GameplayTagContainer.h"
-
-UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_SideScrollingMovement, "Flexi.Movement.SideScroller");
+#include "Miscellaneous/FlexiCamTags.h"
 
 // Sets default values
 AFlexiCamCharacter::AFlexiCamCharacter()
