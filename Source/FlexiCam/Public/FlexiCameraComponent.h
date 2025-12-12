@@ -18,7 +18,7 @@ DECLARE_DELEGATE_RetVal(TSubclassOf<UFlexiCameraMode>, FFlexiCameraModeDelegate)
 /**
  * Base camera component class for FlexiCam
  */
-UCLASS()
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class FLEXICAM_API UFlexiCameraComponent : public UCameraComponent
 {
 	GENERATED_BODY()

@@ -39,7 +39,7 @@ void AFlexiCameraModeTrigger::OnTriggerEndOverlap(UPrimitiveComponent* Overlappe
 
 UFlexiCameraModeManagerComponent* AFlexiCameraModeTrigger::GetCameraModeManagerComponent(AActor* Actor) const
 {
-	if (Actor && Actor->Implements<UFlexiCamInterface>())
+	if (Actor && Actor->GetClass()->ImplementsInterface(UFlexiCamInterface::StaticClass()))
 	{
 		return IFlexiCamInterface::Execute_GetFlexiCameraModeManagerComponent(Actor);
 	}
