@@ -31,7 +31,7 @@ public:
 
 public:
 	//~ Begin IFlexiCamInterface interface
-	virtual UFlexiCameraModeManagerComponent* GetFlexiCameraModeManagerComponent() const override;
+	virtual UFlexiCameraModeManagerComponent* GetFlexiCameraModeManagerComponent_Implementation() const override;
 	//~ End IFlexiCamInterface interface
 
 public:

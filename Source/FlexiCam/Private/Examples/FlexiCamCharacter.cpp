@@ -59,7 +59,7 @@ AFlexiCamCharacter::AFlexiCamCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
 
-UFlexiCameraModeManagerComponent* AFlexiCamCharacter::GetFlexiCameraModeManagerComponent() const
+UFlexiCameraModeManagerComponent* AFlexiCamCharacter::GetFlexiCameraModeManagerComponent_Implementation() const
 {
 	if (FlexiCameraModeManagerComponent)
 	{
@@ -121,7 +121,7 @@ void AFlexiCamCharacter::DoMove(float Right, float Forward)
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
 		// See if we have to modify movement based on camera mode
-		UFlexiCameraModeManagerComponent* CameraModeManager = GetFlexiCameraModeManagerComponent();
+		UFlexiCameraModeManagerComponent* CameraModeManager = GetFlexiCameraModeManagerComponent_Implementation();
 
 		if (!CameraModeManager)
 		{
