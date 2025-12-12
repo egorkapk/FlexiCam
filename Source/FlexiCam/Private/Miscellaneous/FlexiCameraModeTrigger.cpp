@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "FlexiCameraModeManagerComponent.h"
 #include "FlexiCamInterface.h"
+#include "Components/BillboardComponent.h"
 
 // Sets default values
 AFlexiCameraModeTrigger::AFlexiCameraModeTrigger()
@@ -19,6 +20,23 @@ AFlexiCameraModeTrigger::AFlexiCameraModeTrigger()
 	TriggerVolume->SetGenerateOverlapEvents(true);
 	TriggerVolume->OnComponentBeginOverlap.AddDynamic(this, &AFlexiCameraModeTrigger::OnTriggerBeginOverlap);
 	TriggerVolume->OnComponentEndOverlap.AddDynamic(this, &AFlexiCameraModeTrigger::OnTriggerEndOverlap);
+
+#if WITH_EDITORONLY_DATA
+	EditorIcon = CreateDefaultSubobject<UBillboardComponent>(TEXT("EditorIcon"));
+	EditorIcon->SetupAttachment(RootComponent);
+	EditorIcon->SetIsVisualizationComponent(true);
+	EditorIcon->bIsScreenSizeScaled = true;
+	EditorIcon->SetHiddenInGame(true);
+
+	// Задаём стандартную иконку камеры из UE
+	static ConstructorHelpers::FObjectFinder<UTexture2D> CameraIconTexture(
+		TEXT("/Engine/EditorResources/S_TriggerBox")
+	);
+	if (CameraIconTexture.Succeeded())
+	{
+		EditorIcon->SetSprite(CameraIconTexture.Object);
+	}
+#endif
 }
 
 void AFlexiCameraModeTrigger::OnTriggerBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

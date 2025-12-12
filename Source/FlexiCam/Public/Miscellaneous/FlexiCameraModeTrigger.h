@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
 #include "FlexiCameraModeTrigger.generated.h"
 
+class UBillboardComponent;
 class UBoxComponent;
 class UFlexiCameraModeManagerComponent;
 
@@ -33,7 +35,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FlexiCam|Camera")
 	TSubclassOf<class UFlexiCameraMode> CameraModeClass;
 
+
 private:
 	UFlexiCameraModeManagerComponent* GetCameraModeManagerComponent(AActor* Actor) const;
 
+#if WITH_EDITORONLY_DATA
+private:
+	UPROPERTY(Transient, VisibleDefaultsOnly)
+	TObjectPtr<UBillboardComponent> EditorIcon;
+#endif
 };

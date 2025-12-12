@@ -46,7 +46,6 @@ void FFlexiCameraModeView::Blend(const FFlexiCameraModeView& Other, float OtherW
 
 UFlexiCameraMode::UFlexiCameraMode()
 {
-	// TODO: Create defaults settings
 	// Set defaults settings 
 	FieldOfView = FLEXI_CAMERA_DEFAULT_FOV;
 	ViewPitchMin = FLEXI_CAMERA_DEFAULT_PITCH_MIN;

@@ -30,11 +30,11 @@ public:
 	void ResetToDefaultCameraMode();
 
 	// Gets the tag associated with the current camera mode and the blend weight of it
-	UFUNCTION(BlueprintCallable, Category = "FlexiCam|Modes")
+	UFUNCTION(BlueprintPure, Category = "FlexiCam|Modes")
 	void GetCurrentCameraModeBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const;
 
 	// Return true if CurrentCameraMode has any of provided tags
-	UFUNCTION(BlueprintCallable, Category = "FlexiCam|Modes")
+	UFUNCTION(BlueprintPure, Category = "FlexiCam|Modes")
 	bool CurrentCameraModeHasAnyTag(const FGameplayTagContainer& ContainerToCheck);
 
 protected:
