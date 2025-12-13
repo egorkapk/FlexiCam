@@ -28,7 +28,6 @@ AFlexiCameraModeTrigger::AFlexiCameraModeTrigger()
 	EditorIcon->bIsScreenSizeScaled = true;
 	EditorIcon->SetHiddenInGame(true);
 
-	// Задаём стандартную иконку камеры из UE
 	static ConstructorHelpers::FObjectFinder<UTexture2D> CameraIconTexture(
 		TEXT("/Engine/EditorResources/S_TriggerBox")
 	);

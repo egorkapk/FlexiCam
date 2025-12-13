@@ -41,7 +41,7 @@ private:
 
 #if WITH_EDITORONLY_DATA
 private:
-	UPROPERTY(Transient, VisibleDefaultsOnly)
+	UPROPERTY(Transient, VisibleDefaultsOnly, Category = "FlexiCam|Component|Editor")
 	TObjectPtr<UBillboardComponent> EditorIcon;
 #endif
 };
