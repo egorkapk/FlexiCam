@@ -61,6 +61,15 @@ bool UFlexiCameraModeManagerComponent::CurrentCameraModeHasAnyTag(const FGamepla
 	return CurrentTags.HasAny(ContainerToCheck);
 }
 
+bool UFlexiCameraModeManagerComponent::HasAnyTagOnStack(const FGameplayTagContainer& TagsToCheck)
+{
+	if (UFlexiCameraComponent* CameraComponent = UFlexiCameraComponent::FindCameraComponent(GetOwner()))
+	{
+		return CameraComponent->HasAnyTagOnStack(TagsToCheck);
+	}
+	return false;
+}
+
 TSubclassOf<UFlexiCameraMode> UFlexiCameraModeManagerComponent::DetermineCameraMode() const
 {
 	if (CurrentCameraModeClass)

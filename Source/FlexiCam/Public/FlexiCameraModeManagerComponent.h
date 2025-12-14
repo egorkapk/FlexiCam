@@ -37,6 +37,10 @@ public:
 	UFUNCTION(BlueprintPure, Category = "FlexiCam|Modes")
 	bool CurrentCameraModeHasAnyTag(const FGameplayTagContainer& ContainerToCheck);
 
+	// Return true if any of CameraModes on stack has any of provided tags
+	UFUNCTION(BlueprintPure, Category = "FlexiCam|Modes")
+	bool HasAnyTagOnStack(const FGameplayTagContainer& TagsToCheck);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

@@ -45,6 +45,12 @@ void UFlexiCameraComponent::GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTa
 	CameraModeStack->GetBlendInfo(OutWeightOfTopLayer, OutTagsOfTopLayer);
 }
 
+bool UFlexiCameraComponent::HasAnyTagOnStack(const FGameplayTagContainer& TagsToCheck)
+{
+	check(CameraModeStack);
+	return CameraModeStack->HasAnyTagOnStack(TagsToCheck);
+}
+
 void UFlexiCameraComponent::GetCameraView(float DeltaTime, FMinimalViewInfo& DesiredView)
 {
 	check(CameraModeStack);

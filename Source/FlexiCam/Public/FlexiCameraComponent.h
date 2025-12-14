@@ -42,6 +42,7 @@ public:
 
 	// Gets the tag associated with the top layer and the blend weight of it
 	void GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const;
+	bool HasAnyTagOnStack(const FGameplayTagContainer& TagsToCheck);
 
 protected:
 

@@ -134,7 +134,7 @@ void AFlexiCamCharacter::DoMove(float Right, float Forward)
 		FGameplayTagContainer CheckContainer;
 		CheckContainer.AddTag(TAG_SideScrollingMovement);
 
-		if (CameraModeManager->CurrentCameraModeHasAnyTag(CheckContainer))
+		if (CameraModeManager->HasAnyTagOnStack(CheckContainer))
 		{
 			AddMovementInput(RightDirection, Right);
 		}

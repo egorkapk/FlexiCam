@@ -384,19 +384,35 @@ void UFlexiCameraModeStack::GetBlendInfo(float& OutWeightOfTopLayer, FGameplayTa
 	}
 }
 
+bool UFlexiCameraModeStack::HasAnyTagOnStack(const FGameplayTagContainer& TagsToCheck)
+{
+	if (CameraModeStack.Num() <= 0)
+	{
+		return false;
+	}
+	for (const UFlexiCameraMode* CameraMode : CameraModeStack)
+	{
+		if (CameraMode && CameraMode->GetTagContainer().HasAny(TagsToCheck))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 UFlexiCameraMode* UFlexiCameraModeStack::GetCameraModeInstance(TSubclassOf<UFlexiCameraMode> CameraModeClass)
 {
 	check(CameraModeClass);
 
 	// First see if we already created one.
-	for (UFlexiCameraMode* CameraMode : CameraModeInstances)
-	{
-		if ((CameraMode != nullptr) && (CameraMode->GetClass() == CameraModeClass))
+		for (UFlexiCameraMode* CameraMode : CameraModeInstances)
 		{
-			return CameraMode;
+			if ((CameraMode != nullptr) && (CameraMode->GetClass() == CameraModeClass))
+			{
+				return CameraMode;
+			}
 		}
-	}
 
 	// Not found, so we need to create it.
 	UFlexiCameraMode* NewCameraMode = NewObject<UFlexiCameraMode>(GetOuter(), CameraModeClass, NAME_None, RF_NoFlags);
