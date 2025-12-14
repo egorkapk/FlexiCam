@@ -103,6 +103,4 @@ protected:
 	/** Mouse Look Input Action */
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MouseLookAction;
-
-
 };

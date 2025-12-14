@@ -22,7 +22,7 @@ void UFlexiCameraModeManagerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (UFlexiCameraComponent* CameraComponent = UFlexiCameraComponent::FindCameraComponent(GetOwner()))
+	if (UFlexiCameraComponent* CameraComponent = GetFlexiCameraComponent())
 	{
 		CameraComponent->DetermineCameraModeDelegate.BindUObject(this, &ThisClass::DetermineCameraMode);
 	}
@@ -43,7 +43,7 @@ void UFlexiCameraModeManagerComponent::ResetToDefaultCameraMode()
 
 void UFlexiCameraModeManagerComponent::GetCurrentCameraModeBlendInfo(float& OutWeightOfTopLayer, FGameplayTagContainer& OutTagsOfTopLayer) const
 {
-	if (UFlexiCameraComponent* CameraComponent = UFlexiCameraComponent::FindCameraComponent(GetOwner()))
+	if (UFlexiCameraComponent* CameraComponent = GetFlexiCameraComponent())
 	{
 		CameraComponent->GetBlendInfo(OutWeightOfTopLayer, OutTagsOfTopLayer);
 		return;
@@ -63,7 +63,7 @@ bool UFlexiCameraModeManagerComponent::CurrentCameraModeHasAnyTag(const FGamepla
 
 bool UFlexiCameraModeManagerComponent::HasAnyTagOnStack(const FGameplayTagContainer& TagsToCheck)
 {
-	if (UFlexiCameraComponent* CameraComponent = UFlexiCameraComponent::FindCameraComponent(GetOwner()))
+	if (UFlexiCameraComponent* CameraComponent = GetFlexiCameraComponent())
 	{
 		return CameraComponent->HasAnyTagOnStack(TagsToCheck);
 	}
@@ -77,4 +77,13 @@ TSubclassOf<UFlexiCameraMode> UFlexiCameraModeManagerComponent::DetermineCameraM
 		return CurrentCameraModeClass;
 	}
 	return DefaultCameraModeClass;
+}
+
+UFlexiCameraComponent* UFlexiCameraModeManagerComponent::GetFlexiCameraComponent() const
+{
+	if (TargetActorOverride)
+	{
+		return UFlexiCameraComponent::FindCameraComponent(TargetActorOverride);
+	}
+	return UFlexiCameraComponent::FindCameraComponent(GetOwner());
 }

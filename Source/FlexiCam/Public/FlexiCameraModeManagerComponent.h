@@ -48,9 +48,15 @@ protected:
 	// Determines the appropriate camera mode class to use.
 	TSubclassOf<UFlexiCameraMode> DetermineCameraMode() const;
 
+	UFlexiCameraComponent* GetFlexiCameraComponent() const;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "FlexiCam|Modes")
 	TSubclassOf<UFlexiCameraMode> DefaultCameraModeClass;
+
+	// Set actor with FlexiCameraComponent. Manager's owner by default
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "FlexiCam|Camera")
+	TObjectPtr<AActor> TargetActorOverride;
 
 private:
 	TSubclassOf<UFlexiCameraMode> CurrentCameraModeClass;
