@@ -36,4 +36,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "FlexiCam|Camera")
 	FRuntimeFloatCurve BoundsSizeToDistance;
 
+	// Speed at which the camera interpolates to its target location.
+	UPROPERTY(EditDefaultsOnly, Category = "FlexiCam|Camera")
+	float InterpolationSpeed;
+
+private:
+	FVector CurrentCameraLocation;
+	bool bIsFirstUpdate;
 };

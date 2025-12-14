@@ -10,14 +10,26 @@
 UFightingCameraMode::UFightingCameraMode()
 {
 	DefaultPivotRotation = FRotator::ZeroRotator;
+	CurrentCameraLocation = FVector::ZeroVector;
+	bIsFirstUpdate = true;
+	InterpolationSpeed = 5.0f;
 }
 
 void UFightingCameraMode::UpdateView_Implementation(float DeltaTime)
 {
 	const float Distance = BoundsSizeToDistance.GetRichCurveConst()->Eval(GetFightersMaxDistance());
-	FVector PivotLocation = GetMidPoint() - DefaultPivotRotation.Vector() * Distance;
+	FVector TargetLocation = GetMidPoint() - DefaultPivotRotation.Vector() * Distance;
 
-	ModeView.Location = PivotLocation;
+	// Initialize current location on first update
+	if (bIsFirstUpdate)
+	{
+		CurrentCameraLocation = TargetLocation;
+		bIsFirstUpdate = false;
+	}
+	// Smoothly interpolate to target location
+	CurrentCameraLocation = FMath::VInterpTo(CurrentCameraLocation, TargetLocation, DeltaTime,InterpolationSpeed);
+
+	ModeView.Location = CurrentCameraLocation;
 	ModeView.Rotation = DefaultPivotRotation;
 	ModeView.ControlRotation = ModeView.Rotation;
 	ModeView.FieldOfView = FieldOfView;
