@@ -1,10 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2025 Egor Ermakov.
 
 
 #include "FlexiCameraComponent.h"
 
 #include "CameraModes/FlexiCameraMode.h"
 #include "GameFramework/Pawn.h"
+#include "GameFramework/PlayerController.h"
 
 UFlexiCameraComponent::UFlexiCameraComponent(const FObjectInitializer& ObjectInitializer) :
 	Super(ObjectInitializer)
