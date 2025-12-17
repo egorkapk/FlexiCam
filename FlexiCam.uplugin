@@ -7,12 +7,11 @@
 	"Category": "Other",
 	"CreatedBy": "egorkapk",
 	"CreatedByURL": "",
-	"DocsURL": "",
+	"DocsURL": "https://egorkapk.github.io/flexicam-docs/",
 	"MarketplaceURL": "",
 	"SupportURL": "",
 	"EngineVersion": "5.7.0",
 	"CanContainContent": true,
-	"IsBetaVersion": true,
 	"Installed": true,
 	"Modules": [
 		{
