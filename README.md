@@ -12,3 +12,5 @@ Includes ready-to-use templates for Third Person, Top Down, and Fighting-style g
 
 
 Documentation link: https://egorkapk.github.io/flexicam-docs/
+
+Fab marketplace: https://www.fab.com/listings/3561410b-04a7-42c3-8a87-3939768aa470
