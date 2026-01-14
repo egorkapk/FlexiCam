@@ -27,6 +27,20 @@ void UFlexiCameraModeManagerComponent::BeginPlay()
 		CameraComponent->DetermineCameraModeDelegate.BindUObject(this, &ThisClass::DetermineCameraMode);
 	}
 }
+void UFlexiCameraModeManagerComponent::SetTargetActor(AActor* NewTargetActor)
+{
+	if (!NewTargetActor)
+	{
+		return;
+	}
+	TargetActorOverride = NewTargetActor;
+
+	// Rebind to the new target actor's camera component
+	if (UFlexiCameraComponent* CameraComponent = GetFlexiCameraComponent())
+	{
+		CameraComponent->DetermineCameraModeDelegate.BindUObject(this, &ThisClass::DetermineCameraMode);
+	}
+}
 
 void UFlexiCameraModeManagerComponent::SetCameraMode(TSubclassOf<UFlexiCameraMode> NewCameraModeClass)
 {

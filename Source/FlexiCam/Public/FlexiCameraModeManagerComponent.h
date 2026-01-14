@@ -41,6 +41,11 @@ public:
 	UFUNCTION(BlueprintPure, Category = "FlexiCam|Modes")
 	bool HasAnyTagOnStack(const FGameplayTagContainer& TagsToCheck);
 
+	UFUNCTION(BlueprintSetter)
+
+	void SetTargetActor(AActor* NewTargetActor);
+
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -55,7 +60,7 @@ protected:
 	TSubclassOf<UFlexiCameraMode> DefaultCameraModeClass;
 
 	// Set actor with FlexiCameraComponent. Manager's owner by default
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "FlexiCam|Camera")
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "FlexiCam|Camera", meta = (BlueprintSetter = "SetTargetActor"))
 	TObjectPtr<AActor> TargetActorOverride;
 
 private:
