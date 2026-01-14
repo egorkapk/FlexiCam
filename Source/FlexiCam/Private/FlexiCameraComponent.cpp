@@ -58,7 +58,19 @@ void UFlexiCameraComponent::GetCameraView(float DeltaTime, FMinimalViewInfo& Des
 
 	UpdateCameraModes();
 
+	// Set Components values as default to have an ability to work CameraActor in the editor
 	FFlexiCameraModeView CameraModeView;
+	CameraModeView.Location = GetComponentLocation();
+	CameraModeView.Rotation = GetComponentRotation();
+	if (APawn* TargetPawn = Cast<APawn>(GetTargetActor()))
+	{
+		if (APlayerController* PC = TargetPawn->GetController<APlayerController>())
+		{
+			CameraModeView.ControlRotation = PC->GetControlRotation();
+		}
+	}
+	CameraModeView.ControlRotation = CameraModeView.Rotation;
+
 	CameraModeStack->EvaluateStack(DeltaTime, CameraModeView);
 
 	// Keep player controller in sync with the latest view.
